@@ -11,8 +11,14 @@
     .subscribe-button {
       @apply border-2 border-melanie-600 md:px-14 md:py-5 rounded-[8px] md:text-xl font-bold bg-melanie-500  text-melanie-200 ;
     }
+    .login-signup{
+      @apply border-2 border-melanie-600 md:px-14 md:py-5 rounded-[8px] md:text-xl font-bold bg-melanie-300  text-melanie-800 ;
+    }
     .faq-q{
       @apply text-base md:text-xl font-bold text-melanie-600 mt-14;
+    }
+    .login-signup-bg{
+      @apply bg-gradient-to-b from-melanie-300 via-melanie-400 to-melanie-600 border border-melanie-500;
     }
     .faq-a{
       @apply text-sm md:text-lg font-medium mt-8;

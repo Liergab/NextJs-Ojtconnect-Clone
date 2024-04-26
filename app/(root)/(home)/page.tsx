@@ -30,7 +30,7 @@ const Home = () => {
           <h1 className='text-xl md:text-5xl font-bold text-melanie-700 text-center md:text-left'>A Connection that Leads to a Foundation of Experiences</h1>
           <TypewriterEffectSmooth words={words} />
           <div>
-            <Link href='/sign-up'>
+            <Link href='/login'>
               <Button
                 variant='outline'
                 className='signin-button hover:bg-melanie-600 hover:text-melanie-200 shadow-xl text-xs h-6'
