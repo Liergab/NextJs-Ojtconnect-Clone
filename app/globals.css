@@ -6,16 +6,16 @@
         @apply bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-pink-400 via-pink-50 to-pink-400; 
     }
     .signin-button {
-      @apply border-2 border-melanie-600 px-14 py-5 rounded-[8px] text-xl font-bold bg-melanie-500  text-melanie-200 ;
+      @apply border-2 border-melanie-600 md:px-14 md:py-5 rounded-[8px] md:text-xl font-bold bg-melanie-500  text-melanie-200 ;
     }
     .subscribe-button {
-      @apply border-2 border-melanie-600 px-14 py-5 rounded-[8px] text-xl font-bold bg-melanie-500  text-melanie-200 ;
+      @apply border-2 border-melanie-600 md:px-14 md:py-5 rounded-[8px] md:text-xl font-bold bg-melanie-500  text-melanie-200 ;
     }
     .faq-q{
-      @apply text-xl font-bold text-melanie-600 mt-14;
+      @apply text-base md:text-xl font-bold text-melanie-600 mt-14;
     }
     .faq-a{
-      @apply text-lg font-medium mt-8;
+      @apply text-sm md:text-lg font-medium mt-8;
     }
   }
 

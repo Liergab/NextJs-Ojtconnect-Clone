@@ -24,9 +24,17 @@ const config = {
       padding: "2rem",
       screens: {
         "2xl": "1400px",
+      
       },
     },
     extend: {
+      // screens: {
+      //   'xl': '1201px',       
+      //   'lg': '1025px',       
+      //   'laptops': '769px',   
+      //   'tablets': '481px',   
+      //   'mobile': '320px',    
+      // },
       colors: {
         'melanie': {
           '50': '#fbf4f7',

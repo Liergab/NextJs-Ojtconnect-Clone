@@ -5,22 +5,22 @@ import React from 'react'
 const Faq = () => {
   return (
     <section>
-        <div className='min-h-screen mb-20 bg-white-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-100 '>
-            <h1 className='text-4xl font-bold text-melanie-600 mt-28'>Frequently Asked Questions</h1>
-            <p className='text-xl font-semibold mt-20'>
+        <div className='min-h-screen mb-0 md:mb-20 bg-white-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-100 '>
+            <h1 className='text-2xl md:text-4xl font-bold text-melanie-600 mt-10 md:mt-28'>Frequently Asked Questions</h1>
+            <p className='text-base md:text-xl font-semibold mt-10 md:mt-20'>
                 If you have any other questions please email us at 
                 <span  className='text-melanie-600 underline cursor-pointer'> info@ojtconnect.com</span>
             </p>
             <h1 className='faq-q'>How do I sign up for the platform?</h1>
-            <p className='text-lg font-medium mt-10'>
-                <span className='text-xl font-bold text-melanie-600'>Student:</span>
+            <p className='text-sm md:text-lg font-medium mt-10'>
+                <span className='text-base md:text-xl font-bold text-melanie-600'>Student:</span>
                 {` Signing up is easy! Just head to our website and click on the "Sign 
                 In" button. Follow the prompts to create your account. Don't forget to 
                 complete your profile to improve your chances of being invited for an 
                 interview.`}
             </p>
-            <p className='text-lg font-medium mt-10'>
-                <span className='text-xl font-bold text-melanie-600'>Businesses:</span>
+            <p className='text-sm md:text-lg font-medium mt-10'>
+                <span className='text-base md:text-xl font-bold text-melanie-600'>Businesses:</span>
                 {` Simply visit our website and click on the "Sign In" button. Follow the
                  prompts to create your account. Our team will review your information 
                  to assess your eligibility.`}

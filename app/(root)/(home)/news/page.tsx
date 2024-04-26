@@ -9,7 +9,7 @@ const News = () => {
     <section className='w-full '>
       <div className='px-4 md:px-14 min-h-screen'>
         <h1 className='text-4xl text-melanie-600 font-bold mt-24'>Latest News</h1>
-        <div className=' flex  flex-col px-6 md:px-20 mt-24'>
+        <div className=' flex  flex-col px-0 md:px-20 mt-24'>
           <h1 className='text-xl font-semibold'>
             For press opportunities please email us at 
             <span className='text-melanie-600 underline cursor-pointer'> info@ojtconnect.com</span>
