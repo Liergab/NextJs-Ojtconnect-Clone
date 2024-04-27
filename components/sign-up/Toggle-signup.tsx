@@ -23,23 +23,18 @@ const ToggleSignUp:FC<TogglePorps>  = ({handleToggle, activeToggle}) => {
     {toggle_button.map((tb, index) => (
         <React.Fragment key={index}>
              <Button
+                variant='outline'
                 onClick={() =>handleToggle(tb.toggle)}
-                style={{ 
-                    borderRadius: '20px', 
-                    backgroundColor: activeToggle === tb.toggle ? '#EF4040':'#d3dce6', 
-                    color: activeToggle === tb.toggle? '#E8F1F3' :'#508E9B',
-                    fontSize:'16px',
-                    // '&:hover':{
-                    //     color: activeToggle === tb.toggle? '#E8F1F3' :'#508E9B',
-                    //     backgroundColor: activeToggle === tb.toggle ? '#EF4040':'#d3dce6', 
-                    // },
-                    padding:'3px 28px',
-                    fontWeight:'bold',
-                    // '@media (max-width: 600px)': {
-                    //     fontSize: '12px',
-                    //     padding:'5px 25px',
-                    // },
-                }}>
+                className={`
+                ${activeToggle === tb.toggle ? 'bg-[#db9197] text-[#401720] border border-[#401720] hover:bg-melanie-500' 
+                : 'bg-[#f3d8da] text-[#7e3343] hover:bg-melanie-200 hover:text-melanie-950'}
+                    rounded-3xl
+                    text-xs
+                     px-5 md:px-10
+                    font-bold
+                    h-7
+                `}
+                >
                     {tb.label}
             </Button>
         </React.Fragment>

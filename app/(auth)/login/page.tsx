@@ -11,7 +11,7 @@ const Login = () => {
   return (
     <section className='flex items-center justify-center w-full min-h-screen px-4 md:px-10'>
       <div className='flex login-signup-bg w-full max-w-4xl h-auto rounded-xl'>
-          <div className='flex-1 hidden md:flex   items-center justify-center p-10'>
+          <div className='flex-[2] hidden md:flex   items-center justify-center p-10'>
             <Image 
                 src='./about.svg' 
                 alt='side-image' 
@@ -20,7 +20,7 @@ const Login = () => {
                 className='w-full'
             />
           </div>
-          <div className='flex-1 flex flex-col space-y-4 p-10'>
+          <div className='flex-[1.5] flex flex-col space-y-4 p-10'>
             <div>
                 <h1 className='text-lg md:text-xl font-bold text-melanie-800'>Welcome to OJT Connect</h1>
                 <p className='text-base md:text-lg font-semibold text-melanie-800'>{`Let's Get Started! `}
@@ -35,14 +35,14 @@ const Login = () => {
               <Input 
                     type='text' 
                     placeholder='Email Address' 
-                    className='rounded-[6px] bg-melanie-800 appearance-none border-melanie-500 shadow-xl text-melanie-100'
+                    className='login-signup-input'
                     startIcon={Mail}
                     
                 />
               <Input 
                     type={isShow ? 'text' : 'password'} 
                     placeholder='Password'
-                    className='rounded-[6px] bg-melanie-800 appearance-none border-melanie-500 shadow-xl text-melanie-100'
+                    className='login-signup-input'
                     startIcon={Lock}
                     endIcon={isShow ? Eye   : EyeOff}
                     click={() => setIshow(prev => !prev)} 
