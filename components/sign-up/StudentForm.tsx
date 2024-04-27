@@ -3,6 +3,19 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Eye, EyeOff, Lock, Mail, RectangleEllipsis } from 'lucide-react'
 import { Checkbox } from "@/components/ui/checkbox"
+import {useForm} from 'react-hook-form'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "@/components/ui/form"
+import { SignUpForm } from '@/Types/FormTypes'
+import toast from 'react-hot-toast'
+
+type formFields = z.infer<typeof SignUpForm>
 
 const StudentForm = () => {
   const [isShow, setIshow] = useState<boolean>(false)
@@ -10,49 +23,138 @@ const StudentForm = () => {
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    if(isAgree){
-      console.log('agreed in term')
-    }else{
-      console.log('not')
+  const form = useForm<formFields>({
+        resolver: zodResolver(SignUpForm),
+        defaultValues: {
+          firstname :'',
+          role      :'STUDENT',
+          lastname  :'',
+          email     :'',
+          password  :'',
+          password_confirmation:''
+        },
+      })
+
+      const onSubmit = (data:formFields) => {
+        try {
+          if(!isAgree){
+            toast.error('Please agree in terms')
+          }else{
+            console.log(data)
+            form.reset()
+          }
+        } catch (error) {
+          console.log(error)
+        }
+       
+       
+      }
+
+
+    useEffect(() => {
+      if(form.formState.errors.firstname){
+        toast.error(form.formState.errors.firstname.message!);
+      }
+      if(form.formState.errors.lastname){
+        toast.error(form.formState.errors.lastname.message!);
+      }
+      if(form.formState.errors.email){
+        toast.error(form.formState.errors.email.message!);
     }
-  },[isAgree])
+      if (form.formState.errors.password) {
+        toast.error(form.formState.errors.password.message!);
+      }
+      if(form.formState.errors.password_confirmation){
+        toast.error(form.formState.errors.password_confirmation.message!);
+      }
+    }, [form.formState.errors]);
+
   return (
     <div>
-         <form className='flex flex-col gap-2' >
-              <Input 
-                type='text' 
-                placeholder='FirstName' 
-                className='login-signup-input'
-                startIcon={RectangleEllipsis}
+      <Form {...form}>
+         <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-2' >
+              <FormField
+                control={form.control}
+                name="firstname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input 
+                        placeholder="FirstName" {...field}  
+                        className='login-signup-input' 
+                        startIcon={RectangleEllipsis} 
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
-               <Input 
-                type='text' 
-                placeholder='LastName' 
-                className='login-signup-input'
-                startIcon={RectangleEllipsis}
+              <FormField
+                control={form.control}
+                name="lastname"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                    <Input 
+                        type='text' 
+                        placeholder='LastName' {...field}
+                        className='login-signup-input'
+                        startIcon={RectangleEllipsis}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
-              <Input 
-                type='text' 
-                placeholder='Email Address' 
-                className='login-signup-input'
-                startIcon={Mail}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input 
+                        type='text' 
+                        placeholder='Email Address' {...field} 
+                        className='login-signup-input'
+                        startIcon={Mail}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
-              <Input 
-                type={isShow ? 'text' : 'password'} 
-                placeholder='Password'
-                className='login-signup-input' 
-                startIcon={Lock}
-                endIcon={isShow ? Eye   : EyeOff}
-                click={() => setIshow(prev => !prev)} 
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input 
+                        type={isShow ? 'text' : 'password'} 
+                        placeholder='Password'  {...field}
+                        className='login-signup-input' 
+                        startIcon={Lock}
+                        endIcon={isShow ? Eye   : EyeOff}
+                        click={() => setIshow(prev => !prev)} 
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
-               <Input 
-                type={isConfirmPasShow ? 'text' : 'password'} 
-                placeholder='Cofirm Password'
-                className='login-signup-input' 
-                startIcon={Lock}
-                endIcon={isConfirmPasShow ? Eye   : EyeOff}
-                click={() => setIsConfirmPasShow(prev => !prev)} 
+              <FormField
+                control={form.control}
+                name="password_confirmation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input 
+                        type={isConfirmPasShow ? 'text' : 'password'} 
+                        placeholder='Cofirm Password'  {...field}
+                        className='login-signup-input' 
+                        startIcon={Lock}
+                        endIcon={isConfirmPasShow ? Eye   : EyeOff}
+                        click={() => setIsConfirmPasShow(prev => !prev)} 
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
               <div className='flex flex-col p-2 gap-2 '>
                 <div className='flex gap-2 items-center'>
@@ -76,6 +178,7 @@ const StudentForm = () => {
                 </Button>
               </div>
             </form>
+        </Form>
             {isOpen && <h1>Modal for term and condition</h1>}
     </div>
   )

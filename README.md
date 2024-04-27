@@ -1,3 +1,13 @@
+# NextJS  OJTCONNECT-CLONE
+
+- NextJS 14 - Typescript
+- Tailwind 
+- Shadcn , Aceternity
+- Mongodb , Prisma
+
+
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
