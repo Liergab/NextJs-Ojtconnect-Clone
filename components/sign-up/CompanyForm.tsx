@@ -14,6 +14,12 @@ import {
   FormItem,
 } from "@/components/ui/form"
 import { z } from 'zod'
+import Modal from '../Modal'
+import TermAndCondition from '../modal/TermAndCondition'
+import CompanyTerm from '../modal/CompanyTerm'
+import { useRouter } from 'next/navigation'
+import { useTransition } from 'react'
+import { registerCompany } from '@/actions/register'
 
 type formFields = z.infer<typeof SignUpFormCompany>
 const CompanyForm = () => {
@@ -21,11 +27,15 @@ const CompanyForm = () => {
   const [isConfirmPasShow , setIsConfirmPasShow] = useState<Boolean>(false)
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition()
+
+  const router = useRouter();
 
   const form = useForm<formFields>({
     resolver: zodResolver(SignUpFormCompany),
     defaultValues: {
-      company   :'',
+      name      :'',
       role      :'COMPANY',
       address   :'',
       email     :'',
@@ -34,14 +44,21 @@ const CompanyForm = () => {
     },
   })
 
-  const onSubmit = (data:formFields) => {
+  const onSubmit = async(values:formFields) => {
  
     try {
       if(!isAgree){
         toast.error('Please agree in terms')
       }else{
-        console.log(data)
-        form.reset()
+       startTransition(async() => {
+        const response = await registerCompany(values)
+        if(response.data){
+          toast.success(response.message!)
+          router.push('/login')
+        }else{
+          toast.error(response.error!)
+        }
+       })
       }
     } catch (error) {
       console.log(error)
@@ -52,8 +69,8 @@ const CompanyForm = () => {
 
 
 useEffect(() => {
-  if(form.formState.errors.company){
-    toast.error(form.formState.errors.company.message!);
+  if(form.formState.errors.name){
+    toast.error(form.formState.errors.name.message!);
   }
   if(form.formState.errors.address){
     toast.error(form.formState.errors.address.message!);
@@ -75,7 +92,7 @@ useEffect(() => {
           <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-2' >
               <FormField
                 control={form.control}
-                name="company"
+                name="name"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -172,15 +189,22 @@ useEffect(() => {
                   </label>
                 </div>
                 <Button 
+                  disabled={isPending}
                   type='submit' 
                   variant='outline'
                   className='login-signup hover:bg-melanie-400 hover:text-melanie-80 w-full'>
-                  SIGN UP
+                  { isPending ? 'SIGNING...' : 'SIGN UP'}
                 </Button>
               </div>
             </form>
         </Form>
-            {isOpen && <h1>Modal for term and condition</h1>}
+        <Modal open={isOpen} >
+            <CompanyTerm/>
+            <TermAndCondition/>
+            <div className='w-full flex flex-row-reverse p-4'>
+                <Button variant='outline' onClick={() => setIsOpen(false)}>Cancel</Button>
+            </div>
+        </Modal>
     </div>
   )
 }

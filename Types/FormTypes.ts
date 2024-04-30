@@ -17,7 +17,7 @@ export const SignUpForm = z.object({
   })
 
 export const SignUpFormCompany = z.object({
-    company: z.string().min(2, {
+    name: z.string().min(2, {
       message: "Company must be at least 2 characters.",
     }),
     role: z.string(),
@@ -30,4 +30,9 @@ export const SignUpFormCompany = z.object({
 }).refine((data) => data.password === data. password_confirmation, {
     message: "Passwords don't match",
     path: ["password_confirmation"],
+  })
+
+  export const LoginFormSchema = z.object({
+    email    : z.string().email('Must a Valid email'),
+    password : z.string().min(8,{ message: 'Invalid Password'}).max(12),
   })

@@ -14,6 +14,11 @@ import {
 } from "@/components/ui/form"
 import { SignUpForm } from '@/Types/FormTypes'
 import toast from 'react-hot-toast'
+import Modal from '../Modal'
+import TermAndCondition from '../modal/TermAndCondition'
+import { useRouter } from 'next/navigation'
+import { registerStudent } from '@/actions/register'
+import { useTransition } from 'react'
 
 type formFields = z.infer<typeof SignUpForm>
 
@@ -22,7 +27,9 @@ const StudentForm = () => {
   const [isConfirmPasShow , setIsConfirmPasShow] = useState<Boolean>(false)
   const [isAgree, setIsAgree] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isPending, startTransition] = useTransition()
+  const router = useRouter();
   const form = useForm<formFields>({
         resolver: zodResolver(SignUpForm),
         defaultValues: {
@@ -35,13 +42,20 @@ const StudentForm = () => {
         },
       })
 
-      const onSubmit = (data:formFields) => {
+      const onSubmit = async(values:formFields) => {
         try {
           if(!isAgree){
             toast.error('Please agree in terms')
           }else{
-            console.log(data)
-            form.reset()
+            startTransition(async() => {
+              const response = await registerStudent(values);
+              if (response.data) {
+                toast.success(response.message!);
+                router.push('/login')
+              } else {
+                toast.error(response.error!);
+              }
+            }) 
           }
         } catch (error) {
           console.log(error)
@@ -171,15 +185,25 @@ const StudentForm = () => {
                 </div>
                
                 <Button 
+                  disabled={isPending}
                   type='submit' 
                   variant='outline'
                   className='login-signup hover:bg-melanie-400 hover:text-melanie-80 w-full'>
-                  SIGN UP
+                  {isPending ? 'SIGNING...' :'SIGN UP'}
                 </Button>
               </div>
             </form>
         </Form>
-            {isOpen && <h1>Modal for term and condition</h1>}
+        <Modal open={isOpen}>
+            <TermAndCondition />
+            <div className='w-full flex flex-row-reverse p-4'>
+                <Button 
+                  variant='outline' 
+                  onClick={() => setIsOpen(false)}>
+                  Cancel
+                </Button>
+            </div>
+        </Modal>
     </div>
   )
 }

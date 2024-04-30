@@ -1,4 +1,5 @@
 'use client'
+import LoginForm from '@/components/login/LoginForm'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {  Eye, EyeOff,  Lock,  Mail } from 'lucide-react'
@@ -31,34 +32,7 @@ const Login = () => {
                     </Link>
                 </p>
             </div>
-            <form className='flex flex-col space-y-3'>
-              <Input 
-                    type='text' 
-                    placeholder='Email Address' 
-                    className='login-signup-input'
-                    startIcon={Mail}
-                    
-                />
-              <Input 
-                    type={isShow ? 'text' : 'password'} 
-                    placeholder='Password'
-                    className='login-signup-input'
-                    startIcon={Lock}
-                    endIcon={isShow ? Eye   : EyeOff}
-                    click={() => setIshow(prev => !prev)} 
-               />
-              <div className='flex flex-col space-y-2'>
-                <Link href='/forget-password' className='font-semibold text-melanie-900 text-base md:text-lg'>
-                    Forget Password?
-                </Link>
-                <Button 
-                    type='submit'
-                    variant='outline' 
-                    className='login-signup hover:bg-melanie-400 hover:text-melanie-800'>
-                        LOGIN
-                </Button>
-              </div>
-            </form>
+            <LoginForm/>
           </div>
       </div>
     </section>

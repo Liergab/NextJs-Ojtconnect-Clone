@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Enum for user roles
+enum UserRole {
+  ADMIN
+  STUDENT
+  COMPANY
+  
+}
+
+enum LinkType {
+  FACEBOOK
+  LINKEDIN
+  PORTFOLIO
+}
+
+model User {
+  id                String     @id @default(auto()) @map("_id") @db.ObjectId
+  name              String?
+  email             String?    @unique
+  emailVerified     Boolean    @default(false)
+  emailVerifiedDate DateTime? 
+  verificationToken String?
+  image             String?
+  password          String?
+  address           String?
+  role              UserRole   @default(STUDENT) // Default role is USER
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  profile           UserProfile? // Link to user profile
+  CompanyProfile    CompanyProfile? // Link to organization for farmers
+  @@map("users")
+}
+
+
+
+// Model for normal user profile
+model UserProfile {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String   @unique @db.ObjectId
+  university   String?
+  course       String?
+  Skills       String[]
+  links        LinkType 
+  certificates String[] 
+  organization String[]
+  dateOfBirth  DateTime?
+  address      String?
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("student_profile")
+}
+
+// Model for organization (e.g., for farmers)
+model CompanyProfile {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  organizationName String?
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@map("company_profile")
+}  

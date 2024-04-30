@@ -34,3 +34,28 @@
   * {
     scroll-behavior: smooth;
 }
+
+/* Define the scrollbar rail */
+::-webkit-scrollbar {
+  width: 12px;
+  padding: 4px;
+
+}
+
+/* Define the scrollbar track */
+::-webkit-scrollbar-track {
+  background-color:  #7e3343;
+ 
+}
+
+/* Define the scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background-color: #db9197;
+  
+}
+
+/* Define the scrollbar thumb on hover */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #7e3343;
+  
+}
