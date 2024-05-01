@@ -13,6 +13,7 @@ import Modal from '../Modal'
 import ForgetPassword from '../modal/ForgetPassword'
 import { useRouter } from 'next/navigation'
 import { login } from '@/actions/login'
+import { AuthError } from 'next-auth'
 
 
 type formFields = z.infer<typeof LoginFormSchema>
@@ -32,11 +33,14 @@ const LoginForm = () => {
     })
 
     const onSubmit = async(values:formFields) => {
-       startTransition(() => {
-        login(values).then((data) => {
-            toast.error(data.error!)
-            toast.success(data.success!)
-        })
+       startTransition(async() => {
+        const result = await login(values);
+        if (result.error) {
+          toast.error(result.error);
+        } else {
+          toast.success('Logged in successfully!')
+        }
+      
        })
     }
 
