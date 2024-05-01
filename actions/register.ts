@@ -1,27 +1,30 @@
 "use server"
-import { LoginFormSchema, SignUpForm, SignUpFormCompany } from '@/Types/FormTypes'
+import { SignUpForm, SignUpFormCompany } from '@/Types/FormTypes'
 import db from '@/lib/db'
 import * as z from 'zod'
 import bcrypt from 'bcrypt'
+import { getUserByEmail } from '@/data/user'
 
 type Role = 'ADMIN' | 'STUDENT' | 'COMPANY';
 
 export const registerStudent = async(values: z.infer<typeof SignUpForm>) =>{
     try {
-        const existingEmail = await db.user.findUnique({where:{email:values.email}})
+        const {firstname,lastname,email,role,password} = values
+        
+        const existingEmail = await getUserByEmail(email)
 
         if(existingEmail){
             return {error:'Email already used!'}
         }
     
         const salt = await bcrypt.genSalt(10)
-        const hashPassword = await bcrypt.hash(values.password, salt)
+        const hashPassword = await bcrypt.hash(password, salt)
     
         const userStudent = await db.user.create({
             data:{
-                email    :  values.email,
-                name     : `${values.firstname} ${values.lastname}`,
-                role     :  values.role as Role,
+                email    :  email,
+                name     : `${firstname} ${lastname}`,
+                role     :  role as Role,
                 password :  hashPassword
             }
         })
@@ -42,21 +45,23 @@ export const registerStudent = async(values: z.infer<typeof SignUpForm>) =>{
 export const registerCompany = async(values: z.infer<typeof SignUpFormCompany>) =>{
 
     try {
-        const existingEmail = await db.user.findUnique({where:{email:values.email}})
+        const {name, email, role, password, address} = values
+
+        const existingEmail = await getUserByEmail(email)
 
         if(existingEmail){
             return {error:'Email already used!'}
         }
     
         const salt = await bcrypt.genSalt(10)
-        const hashPassword = await bcrypt.hash(values.password, salt)
+        const hashPassword = await bcrypt.hash(password, salt)
     
         const userStudent = await db.user.create({
             data:{
-                email    :  values.email,
-                name     :  values.name,
-                address  :  values.address,
-                role     :  values.role as Role,
+                email    :  email,
+                name     :  name,
+                address  :  address,
+                role     :  role as Role,
                 password :  hashPassword
             }
         })
@@ -71,7 +76,4 @@ export const registerCompany = async(values: z.infer<typeof SignUpFormCompany>) 
         console.log(error)
         return{error:error}
     }
-   
-   
-
 }
