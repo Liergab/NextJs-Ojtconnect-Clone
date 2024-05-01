@@ -37,8 +37,28 @@ model User {
 
   profile           UserProfile? // Link to user profile
   CompanyProfile    CompanyProfile? // Link to organization for farmers
+  Account           Account[]
   @@map("users")
 }
+model Account {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId              String   @unique @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? 
+  access_token       String? 
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? 
+  session_state      String?
+  user  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+ 
 
 
 
