@@ -35,11 +35,14 @@ const LoginForm = () => {
     const onSubmit = async(values:formFields) => {
        startTransition(async() => {
         const result = await login(values);
-        if (result.error) {
-          toast.error(result.error);
-        } else {
-          toast.success('Logged in successfully!')
+        if(result){
+          if (result.error) {
+            toast.error(result.error!);
+          } else if(result.success) {
+            toast.success(result.success!)
+          }
         }
+        
       
        })
     }

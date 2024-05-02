@@ -25,9 +25,8 @@ model User {
   id                String     @id @default(auto()) @map("_id") @db.ObjectId
   name              String?
   email             String?    @unique
-  emailVerified     Boolean    @default(false)
+  emailVerified     DateTime?
   emailVerifiedDate DateTime? 
-  verificationToken String?
   image             String?
   password          String?
   address           String?
@@ -87,3 +86,12 @@ model CompanyProfile {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@map("company_profile")
 }  
+
+model verificationToken {
+    id    String   @id @default(auto()) @map("_id") @db.ObjectId
+    email String
+    token String @unique
+    expires DateTime
+
+    @@unique([email, token])
+}

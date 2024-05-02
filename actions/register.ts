@@ -4,6 +4,8 @@ import db from '@/lib/db'
 import * as z from 'zod'
 import bcrypt from 'bcrypt'
 import { getUserByEmail } from '@/data/user'
+import { generateVerificationToken } from '@/lib/tokens'
+import { sendVerificationEmail } from '@/lib/mail'
 
 type Role = 'ADMIN' | 'STUDENT' | 'COMPANY';
 
@@ -28,10 +30,12 @@ export const registerStudent = async(values: z.infer<typeof SignUpForm>) =>{
                 password :  hashPassword
             }
         })
-    
+
+        const verificationToken = await generateVerificationToken(userStudent.email!)
+        await sendVerificationEmail(verificationToken.email, verificationToken.token)
         return {
             data:userStudent, 
-            message:'Succesfully registered!'
+            message:'Confirmation Emai Sent!'
         }
         
         
