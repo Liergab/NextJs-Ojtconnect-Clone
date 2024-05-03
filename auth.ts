@@ -17,8 +17,6 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   },
   callbacks:{
     async signIn({user,account}){
-      console.log(user)
-      console.log({account})
       if(account?.provider !== 'credentials') return true
       const existingUser = await getUserById(user.id!)
       if(!existingUser || !existingUser.emailVerified){
@@ -27,7 +25,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       return true
     },
     async session({token, session}){
-      console.log({sessiomToken:token})
+      
 
       if(token.sub && session.user){
         session.user.id = token.sub;

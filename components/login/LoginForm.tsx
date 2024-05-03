@@ -13,7 +13,6 @@ import Modal from '../Modal'
 import ForgetPassword from '../modal/ForgetPassword'
 import { useRouter } from 'next/navigation'
 import { login } from '@/actions/login'
-import { AuthError } from 'next-auth'
 
 
 type formFields = z.infer<typeof LoginFormSchema>
@@ -24,6 +23,7 @@ const LoginForm = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const router = useRouter()
+    
     const form = useForm<formFields>({
         resolver: zodResolver(LoginFormSchema),
         defaultValues: {

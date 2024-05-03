@@ -7,7 +7,8 @@ export const publicRoutes = [
     '/',
     '/news',
     'faq',
-    '/new-verification'
+    '/new-verification',
+    '/new-password'
 ]
 
 /**
@@ -29,3 +30,7 @@ export const authRoutes = [
 export const apiAuthPrefix = "/api/auth"
 
 export const Default_LOGIN_REDIRECT= '/student-dashboard'
+
+export const studentRoutesPrefix = '/student-dashboard'
+
+export const companyRoutesPrefix = '/company-dashboard'

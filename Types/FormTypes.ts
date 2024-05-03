@@ -36,3 +36,15 @@ export const SignUpFormCompany = z.object({
     email    : z.string().email('Must a Valid email'),
     password : z.string().min(8,{ message: 'Invalid Password'}).max(12),
   })
+
+  export const resetPassword = z.object({
+    email    : z.string().email('Must a Valid email'),
+  })
+
+  export const newPasswordSchema = z.object({
+    password : z.string().min(8,{ message: 'Invalid Password'}).max(12),
+    password_confirmation :z.string()
+  }).refine((data) => data.password === data. password_confirmation, {
+    message: "Passwords don't match",
+    path: ["password_confirmation"],
+  })
