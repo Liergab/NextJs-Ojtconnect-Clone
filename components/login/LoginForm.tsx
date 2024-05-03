@@ -95,7 +95,7 @@ const LoginForm = () => {
                     )}
                 />
                 <div className='flex flex-col space-y-2'>
-                <div className='font-semibold text-melanie-900 text-base md:text-lg' 
+                <div className='font-semibold text-melanie-900 text-base md:text-lg hover:underline cursor-pointer' 
                     onClick={() =>setIsOpen(prev => !prev)}
                 >
                     Forget Password?

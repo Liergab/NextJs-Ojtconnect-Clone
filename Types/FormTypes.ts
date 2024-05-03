@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z  from "zod";
 
 export const SignUpForm = z.object({
     firstname: z.string().min(2, {

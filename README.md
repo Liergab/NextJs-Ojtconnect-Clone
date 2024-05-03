@@ -5,6 +5,42 @@
 - Shadcn , Aceternity
 - Mongodb , Prisma
 
+# File Stracture
+- app 
+    - (auth)
+        - This page is for auth route example (login, sign-up, verify-account, reset-password)
+    -  (root) 
+        - (student/route) - only accessible for student
+        - (company/route) - only accessible for company
+        - (home/route) - landing page
+    - api - For making api
+- components 
+    - ui - Reusable components coming from shadcn
+    - modal - Different modal folder
+    - provider - Different provider
+    - sign-up - Different sign-up components
+    - Login - Different Login components
+    - other Navbar footer Modal 
+- actions 
+    - This folder is for server action
+- data 
+    - Reusable Logic that can be used for server action example (getUserById, By Email)
+- types 
+    - This folder is for zod types of form schema types.
+- lib 
+    - helper function
+    - db connection
+    - mail configuration
+    - token generator
+- auth 
+    - Configuration of authjs callback, events, strategies,
+- auth.config 
+    - we import this in authj it contain the logic of saving the credentials in database
+- middleware 
+    - For route logic before we access the route or path the middleware will check if the user is cable or valid to go in specific route or path
+
+
+
 
 
 

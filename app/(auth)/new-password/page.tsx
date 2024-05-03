@@ -1,5 +1,5 @@
 'use client'
-import {useState, useTransition } from 'react'
+import {useEffect, useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input'
 import { newPasswordSchema } from '@/Types/FormTypes'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import * as z  from 'zod'
 import { Eye, EyeOff, Lock } from 'lucide-react'
 import { newPassword } from '@/actions/new-password'
 
@@ -23,6 +23,7 @@ const NewPassword = () => {
     const token = searchParams.get('token')
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
+
     const form = useForm<formFields>({
       resolver: zodResolver(newPasswordSchema),
       defaultValues: {
@@ -44,6 +45,15 @@ const NewPassword = () => {
         }
        })
     }
+
+    useEffect(() => {
+      if (form.formState.errors.password) {
+        toast.error(form.formState.errors.password.message!);
+      }
+      if(form.formState.errors.password_confirmation){
+        toast.error(form.formState.errors.password_confirmation.message!);
+      }
+    },[form.formState])
   
   return (
     <div className='min-h-screen w-full flex items-center justify-center'>
