@@ -1,8 +1,17 @@
+import { UserRole } from "@prisma/client";
 import NextAuth,{ DefaultSession } from "next-auth"
+import { type DefaultJWT } from "next-auth/jwt";
 
-export type ExtendedUser  = DefaultSession["user"] & {
-    role : 'ADMIN' | 'STUDENT' | 'COMPANY'
-}
+export type UserTypes = {
+  // Properties you want in your User. I would advise against using the whole prisma user object.
+  id: string;
+  email: string ;
+  name : string, 
+  role : 'ADMIN' | 'STUDENT' | 'COMPANY'
+  createdAt: Date;
+};
+
+export type ExtendedUser  = DefaultSession["user"] & UserTypes
 
 declare module "next-auth" {
     interface Session {
@@ -10,11 +19,15 @@ declare module "next-auth" {
     }
   }
 
-  import { JWT } from "next-auth/jwt"
-
+  
+  type ExtendedJWT = DefaultJWT & UserTypes;
   declare module "next-auth/jwt" {
     /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
-    interface JWT {
-    role?: 'ADMIN' | 'STUDENT' | 'COMPANY'
+    interface JWT extends ExtendedJWT {
+    role?: 'ADMIN' | 'STUDENT' | 'COMPANY',
+   
     }
   }
+
+
+  

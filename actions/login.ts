@@ -29,7 +29,7 @@ export const login = async(values: z.infer<typeof LoginFormSchema>) =>{
         })
 
         return{success:'Successfully Login'}
-
+        
     } catch (error) {
         if(error instanceof AuthError){
             switch (error.type) {
@@ -38,7 +38,6 @@ export const login = async(values: z.infer<typeof LoginFormSchema>) =>{
                 default:
                     return {error:'something went wrong'};
             }
-
         } 
         throw error;
     }
