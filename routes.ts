@@ -20,7 +20,7 @@ export const authRoutes = [
     '/login',
     '/sign-up',
    
-    // '/company-dashboard'
+   
 ]
 /**
  * An Array of Api routes that are accessible everytime
@@ -29,8 +29,12 @@ export const authRoutes = [
  */
 export const apiAuthPrefix = "/api/auth"
 
-export const Default_LOGIN_REDIRECT= '/student-dashboard'
+export const companyRoutes = [
+    '/company-dashboard',
+    'profile'
+]
 
-export const studentRoutesPrefix = '/student-dashboard'
-
-export const companyRoutesPrefix = '/company-dashboard'
+export const studentRoutes =[
+    '/student-dashboard',
+    
+]
