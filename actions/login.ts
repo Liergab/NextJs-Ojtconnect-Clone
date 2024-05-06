@@ -4,7 +4,6 @@ import { signIn } from '@/auth'
 import { getUserByEmail } from '@/data/user'
 import { sendVerificationEmail } from '@/lib/mail'
 import { generateVerificationToken } from '@/lib/tokens'
-import { Default_LOGIN_REDIRECT } from '@/routes'
 import { AuthError } from 'next-auth'
 import * as z from 'zod'
 
@@ -24,8 +23,8 @@ export const login = async(values: z.infer<typeof LoginFormSchema>) =>{
     try {
       await signIn('credentials',{
             email, 
-            password,
-            redirectTo:Default_LOGIN_REDIRECT
+            password,    
+            redirectTo: existingUser.role === 'STUDENT' ? '/student-dashboard' :  '/company-dashboard'
         })
 
         return{success:'Successfully Login'}

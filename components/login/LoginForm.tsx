@@ -101,10 +101,11 @@ const LoginForm = () => {
                     Forget Password?
                 </div>
                 <Button 
+                  disabled={isPending}
                    type='submit'
                     variant='outline' 
                     className='login-signup hover:bg-melanie-400 hover:text-melanie-800'>
-                        LOGIN
+                        {isPending ? 'LOGGING IN...' : 'LOGIN' }
                 </Button>
               </div>
             </form>

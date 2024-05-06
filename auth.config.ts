@@ -38,10 +38,7 @@ export default {
         }
       },
       callbacks:{
-        authorized({ request, auth }) {
-          console.log("Please Remove Me. This is a POC", auth) // <-- This should have your additional user data!
-          return true;
-        },
+     
         async signIn({user,account}){
           if(account?.provider !== 'credentials') return true
           const existingUser = await getUserById(user.id!)

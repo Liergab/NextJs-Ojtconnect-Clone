@@ -65,7 +65,7 @@ const Navbar = () => {
        
         {/* mobile */}
         <div>
-          <div className='flex flex-col items-center justify-center lg:hidden'>
+          <div className='flex flex-col items-center justify-center lg:hidden' onClick={handleCloseMenu}>
             <DropdownMenu>
             <DropdownMenuTrigger > 
               <Hamburger toggled={isOpen} toggle={setOpen} color='#6b303e' size={20} />
